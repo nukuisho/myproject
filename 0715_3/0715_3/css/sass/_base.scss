@@ -1,0 +1,118 @@
+@use "./variable" as *;
+
+/*------------------------------
+all
+------------------------------*/
+body{
+    color: $color-text;
+    font-size: 1.6rem;
+    font-weight: 400;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+html{
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+.inner {
+    width: $layout-width-inner;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+img{
+    object-fit: cover;
+}
+
+a{
+    text-decoration: none;
+    color: $color-text;
+    
+    &:hover{
+        opacity: 0.7;
+    }
+}
+
+p{
+    font-size: 2.4rem;
+    line-height: (42 / 24);
+
+    @include mq('sp') {
+        font-size: 1.8rem;
+    }
+}
+
+/*------------------------------
+font
+------------------------------*/
+.ms{
+    font-family: $font-MS;
+}
+
+/*------------------------------
+common
+------------------------------*/
+/* スマホ用の表示の時はis-pcは非表示 */
+@include mq('sp') {
+    .pc {
+        display: none;
+    }
+}
+
+/* PC用の表示の時はis-spは非表示 */
+@include mq('pc') {
+    .sp {
+        display: none;
+    }
+}
+
+.text-ctr{
+    text-align: center;
+}
+
+.revers{
+    flex-direction: row-reverse;
+}
+
+/*------------------------------
+button
+------------------------------*/
+.btn{
+    display: inline-block;
+    font-size: 2.4rem;
+    line-height: 2;
+    color: #fff !important;
+    background: #00680c;
+    padding: 0 1em;
+    border-radius: 12px;
+    text-align: center;
+    @include mq('sp'){
+        font-size: min(calc(17/375 * 100vw),calc(17/375 * 600px));
+    }
+}
+
+.more-btn {
+    display: inline-block;
+    width: 115px;
+    font-size: 1.8rem;
+    line-height: (31 / 18);
+    font-family: $font-MS;
+    text-align: center;
+    background: #d3d3d3;
+    border-radius: 12px;
+}
+
+/*------------------------------
+title
+------------------------------*/
+.section-title{
+    font-size: 3.8rem;
+    line-height: (66 / 38);
+    font-family: $font-MS;
+    text-align: center;
+    @include mq('sp'){
+        font-size: 3.0rem;
+    }
+}

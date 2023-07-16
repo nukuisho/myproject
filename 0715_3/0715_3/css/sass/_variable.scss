@@ -1,0 +1,41 @@
+// ------------------------------------
+// フォント
+// ------------------------------------
+@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300&family=Noto+Sans+JP&display=swap');
+
+@font-face {
+	font-family: 'MS';
+	src: url('../font/MS-UIGothic-02.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+$font-MS: 'MS', sans-serif;
+$font-kiwi: 'Kiwi Maru', serif;
+
+// ------------------------------------
+// カラー
+// ------------------------------------
+$color-main: 〇〇;
+$color-accent: 〇〇;
+$color-text: #000;
+
+// ------------------------------------
+// コンテンツ幅
+// ------------------------------------
+$layout-width-inner: 1140px;
+
+// ------------------------------------
+// ブレークポイント
+// ------------------------------------ 
+$breakpoints: (
+  "sp": "(max-width: 767px)",
+  "pc": "(min-width: 768px)",
+);
+
+// メディアクエリ
+@mixin mq($breakpoint: sp) {
+    @media #{map-get($breakpoints, $breakpoint)} {
+        @content;
+    }
+}
