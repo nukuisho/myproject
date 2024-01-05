@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>VTT Parser</title>
+  <script src="./vtt.min.js"></script>
+</head>
+
+<body>
+  <div id="vtt-container"></div>
+
+  <input type="text" id="inputText" placeholder="ここに単語を入力" />
+  <button onclick="onSelectWord(document.getElementById('inputText').value)">予約する</button>
+
+  <div id="result"></div>
+
+  <script>
+    async function parseVTT(file) {
+      const subtitles = [];
+      const response = await fetch(file);
+      const data = await response.text();
+
+      const parser = new WebVTT.Parser(window, WebVTT.StringDecoder());
+      parser.oncue = function (cue) {
+        subtitles.push({
+          text: cue.text,
+          startTime: cue.startTime,
+          endTime: cue.endTime,
+        });
+      };
+
+      parser.parse(data);
+      parser.flush();
+
+      return subtitles;
+    }
+
+    async function showVTTText() {
+      const response = await fetch('sample.vtt');
+      const data = await response.text();
+      const vttContainer = document.getElementById('vtt-container');
+      vttContainer.innerHTML = data.replace(/\n/g, '<br />');
+    }
+
+
+    var subtitles = [];
+
+    async function onSelectWord(word) {
+      if (subtitles.length == 0) {
+        subtitles = await parseVTT('sample.vtt');
+      }
+      // 単語が最初に出てくる時間を取得
+      const startTime = subtitles.find((subtitle) => subtitle.text.includes(word)).startTime;
+      const wordData = {
+        word: word,
+        startTime: startTime,
+      }
+
+      const result = document.getElementById('result');
+      result.innerHTML = JSON.stringify(wordData);
+    }
+
+    showVTTText();
+  </script>
+</body>
+
+</html>
